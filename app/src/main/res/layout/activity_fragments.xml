@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/android_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/appbar_layout"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/dashtoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:fontFamily="@font/verdana"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dash Board"
+                android:gravity="left"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/nestedscrollview"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.insurance.insuranceapp.Activites.MainActivity">
+
+
+                <LinearLayout
+
+                    android:id="@+id/linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:paddingBottom="14dp"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@drawable/rounded_border_edittext"
+                        android:padding="5dp"
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="@font/verdana"
+                            android:text="Payments"
+                            android:textColor="@color/Black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/textView2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="23dp"
+                            android:text="Reserved Payments Total "
+                            android:fontFamily="@font/verdana"
+                            android:textColor="@color/Black"
+                            android:textSize="18sp" />
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/textView5"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="23dp"
+                            android:text="Confirmed Payments Total "
+                            android:fontFamily="@font/verdana"
+                            android:textColor="@color/Black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tx_totalreserved"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignTop="@+id/textView5"
+                            android:layout_marginEnd="90dp"
+                            android:fontFamily="@font/verdana"
+                            android:text="Rs.0"
+                            android:textColor="@color/Black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tx_totalconfirmed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/tx_totalreserved"
+                            android:layout_alignTop="@+id/textView6"
+                            android:fontFamily="@font/verdana"
+                            android:text="Rs.0"
+                            android:textColor="@color/Black"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/rounded_border_edittext"
+                        android:padding="5dp">
+                        >
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rel"
+                            android:layout_centerHorizontal="true"
+                            >
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:fontFamily="@font/verdana"
+                                android:text="Payments"
+                                android:textColor="@color/Black"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/rel">
+
+
+                        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:id="@+id/tableLayout"
+                            >
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/firstrow">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:fontFamily="@font/verdana"
+                                android:text="Pending Cases   "
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:textColor="#393534"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="200px"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/verdana"
+                                android:layout_marginLeft="55dp"
+                                android:text=""/>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/secondrow">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:fontFamily="@font/verdana"
+                                android:text="Quesry Cases "
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:textColor="#393534"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:width="200px"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/verdana"
+                                android:layout_marginLeft="55dp"
+                                android:text=""/>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/thirdrow">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:fontFamily="@font/verdana"
+                                android:text="Saved Cases "
+                                android:textStyle="bold"
+                                android:textColor="#393534"
+                                android:textSize="18sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/verdana"
+                                android:width="100px"
+                                android:layout_marginLeft="55dp"
+                                android:text=""/>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fourthrow">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:fontFamily="@font/verdana"
+                                android:text="Completed Cases"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:textColor="#393534"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/verdana"
+                                android:width="100px"
+                                android:layout_marginLeft="55dp"
+                                android:text=""/>
+                        </TableRow>
+                        </TableLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+

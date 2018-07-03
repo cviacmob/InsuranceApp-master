@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.insurance.insuranceapp.Activites.HospitalBlockActivity">
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/rounded_border_edittext"
+        android:padding="5dp">
+        >
+
+
+        <TextView
+            android:id="@+id/tx_pendincase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/verdana"
+            android:text="QC Query "
+            android:textColor="@color/Black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="54dp"
+            android:fontFamily="@font/verdana"
+            android:text="QC query File"
+            android:textColor="@color/Black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_above="@+id/save"
+            android:layout_marginBottom="-109dp"
+            android:fontFamily="@font/verdana"
+            android:text="QC Query on"
+            android:textColor="@color/Black"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
+
+        <TextView
+            android:id="@+id/pending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/tx_pendincase"
+            android:layout_marginStart="125dp"
+            android:fontFamily="@font/verdana"
+            android:text=""
+            android:textColor="@color/Black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView7"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_alignLeft="@+id/pending"
+            android:layout_alignStart="@+id/pending"
+            android:text=""
+            android:fontFamily="@font/verdana"
+            android:textColor="@color/Black"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/pending"
+            android:layout_marginTop="93dp"
+            android:fontFamily="@font/verdana"
+            android:text=""
+            android:textColor="@color/Black"
+            android:textSize="14sp"
+            tools:ignore="RtlCompat" />
+
+        <RelativeLayout
+            android:id="@+id/real30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/save"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+
+            >
+
+
+
+                <EditText
+                    android:id="@+id/ed_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:ems="10"
+                    android:fontFamily="@font/verdana"
+                    android:gravity="bottom"
+                    android:hint="Any Comment`s in the visit"
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/Black"
+                    android:textSize="12sp" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/reaa31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/real30"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+
+            >
+
+
+            <TextView
+                android:id="@+id/file31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/title31"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:fontFamily="@font/verdana"
+                android:padding="3dp"
+                android:text="Choose File"
+                android:textColor="@color/Black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/filename31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/file31"
+                android:layout_alignBottom="@+id/file31"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
+                android:layout_toEndOf="@+id/file31"
+                android:layout_toRightOf="@+id/file31"
+                android:fontFamily="@font/verdana"
+                android:text="No file chosen  File Should be pdf/doc Format"
+                android:textColor="@color/Black"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/title31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/verdana"
+                android:paddingTop="2dp"
+                android:text="Query Reply File"
+                android:textColor="@color/Black"
+                android:textSize="12.5dp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/realdynmo"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
+
+            <Button
+                android:id="@+id/bt_submit"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="59dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:fontFamily="@font/verdana"
+                android:text="@string/submit"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/bt_back"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="58dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:fontFamily="@font/verdana"
+                android:text="@string/back"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

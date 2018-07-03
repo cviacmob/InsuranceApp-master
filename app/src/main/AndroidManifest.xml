@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.insurance.insuranceapp"
+    android:installLocation="auto">
+
+    <uses-sdk android:minSdkVersion="8"
+        tools:ignore="GradleOverrides" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:name=".Utilities.InsApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="AA_MODELS"
+            android:value=" com.insurance.insuranceapp.Datamodel.UserAccountInfo,com.insurance.insuranceapp.Datamodel.Triggers,com.insurance.insuranceapp.Datamodel.ImagesSaveInfo" />
+
+        <provider
+            android:name="com.activeandroid.content.ContentProvider"
+            android:authorities="com.insurance.insuranceapp"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".Activites.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="insuranceapp.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
+        <activity
+            android:name=".Activites.LoginActivity"
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activites.ProfileActivity" />
+        <activity android:name=".Activites.PendingCasesActivity" />
+        <activity android:name=".Activites.ReservedPaymentsActivity" />
+        <activity android:name=".Activites.HospitalBlockActivity" />
+        <activity android:name=".Activites.PatientBlockActivity" />
+        <activity android:name=".Activites.DeathCliamActivity" />
+        <activity android:name=".Activites.DisabilityActivity" />
+        <activity android:name=".Activites.SMEActivity" />
+        <activity android:name=".Activites.PersonalAccidentActivity" />
+        <activity android:name=".Activites.BillVerificationHospital"></activity>
+        <activity android:name=".Activites.BillVerificationPharmacy"></activity>
+        <activity android:name=".Activites.DocumentsVerification" />
+        <activity android:name=".Activites.Cashless" />
+        <activity android:name=".Activites.IntimationCase" />
+        <activity android:name=".Activites.DynamicActivity" />
+        <activity android:name=".Activites.CompletedCaseActivity" />
+        <activity android:name=".Activites.SavedCasesActivity" />
+        <activity android:name=".Activites.QueryCasesActivity"></activity>
+        <service android:name=".Utilities.RecorderService" />
+    </application>
+
+</manifest>

@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.insurance.insuranceapp.Activites.HospitalBlockActivity">
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/rounded_border_edittext">
+
+            <RelativeLayout
+                android:id="@+id/reaal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/file1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title1"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file1"
+                    android:layout_alignBottom="@+id/file1"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file1"
+                    android:layout_toRightOf="@+id/file1"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Company Authorization Letter towards the hospital *"
+                    android:textColor="@color/Black"
+                    android:textSize="12.5dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reaal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/file2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title2"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file2"
+                    android:layout_alignBottom="@+id/file2"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file2"
+                    android:layout_toRightOf="@+id/file2"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Investigation report form *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rea"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title3"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file3"
+                    android:layout_alignBottom="@+id/file3"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file3"
+                    android:layout_toRightOf="@+id/file3"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Treating doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reala"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title4"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file4"
+                    android:layout_alignBottom="@+id/file4"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file4"
+                    android:layout_toRightOf="@+id/file4"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Case sheet *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reala"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title5"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file5"
+                    android:layout_alignBottom="@+id/file5"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file5"
+                    android:layout_toRightOf="@+id/file5"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real5"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title6"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file6"
+                    android:layout_alignBottom="@+id/file6"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file6"
+                    android:layout_toRightOf="@+id/file6"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real6"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title7"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file7"
+                    android:layout_alignBottom="@+id/file7"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file7"
+                    android:layout_toRightOf="@+id/file7"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real7"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title8"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file8"
+                    android:layout_alignBottom="@+id/file8"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file8"
+                    android:layout_toRightOf="@+id/file8"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real8"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title9"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file9"
+                    android:layout_alignBottom="@+id/file9"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file9"
+                    android:layout_toRightOf="@+id/file9"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real9"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title10"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file10"
+                    android:layout_alignBottom="@+id/file10"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file10"
+                    android:layout_toRightOf="@+id/file10"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real10"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/file11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title11"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file11"
+                    android:layout_alignBottom="@+id/file11"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file11"
+                    android:layout_toRightOf="@+id/file11"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Company Authorization Letter towards the hospital *"
+                    android:textColor="@color/Black"
+                    android:textSize="12.5dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real11"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/file12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title12"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file12"
+                    android:layout_alignBottom="@+id/file12"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file12"
+                    android:layout_toRightOf="@+id/file12"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Investigation report form *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real12"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title13"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file13"
+                    android:layout_alignBottom="@+id/file13"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file13"
+                    android:layout_toRightOf="@+id/file13"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Treating doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real13"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title14"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file14"
+                    android:layout_alignBottom="@+id/file14"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file14"
+                    android:layout_toRightOf="@+id/file14"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Case sheet *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/real15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real14"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/file15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title15"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file15"
+                    android:layout_alignBottom="@+id/file15"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file15"
+                    android:layout_toRightOf="@+id/file15"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Doctor Questionnaire *"
+                    android:textColor="@color/Black"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/real28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real15"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <EditText
+                    android:id="@+id/ed_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:ems="10"
+                    android:fontFamily="@font/verdana"
+                    android:gravity="bottom"
+                    android:hint="Any Comment`s in the visit"
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/Black"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/real30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real28"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_edit_convanceamt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edit_convanceamt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/verdana"
+                        android:hint="Conveyance Amount(₹)"
+                        android:textColor="@color/Black"
+                        android:textSize="12sp" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reaa31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/real30"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/file31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title31"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:padding="3dp"
+                    android:text="Choose File"
+                    android:textColor="@color/Black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/filename31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/file31"
+                    android:layout_alignBottom="@+id/file31"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_toEndOf="@+id/file31"
+                    android:layout_toRightOf="@+id/file31"
+                    android:fontFamily="@font/verdana"
+                    android:text="No file chosen  File Should be pdf/doc Format"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/title31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/verdana"
+                    android:paddingTop="2dp"
+                    android:text="Company Authorization Letter towards the hospital *"
+                    android:textColor="@color/Black"
+                    android:textSize="12.5dp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/realdynmo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reaa31"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/realdynmo"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
+
+                <Button
+                    android:id="@+id/care_save"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginStart="26dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:text="Save"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/bt_submit"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:text="@string/submit"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/bt_back"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:fontFamily="@font/verdana"
+                    android:text="@string/back"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</ScrollView>
