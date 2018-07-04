@@ -177,7 +177,7 @@ public class PendingCasesActivity extends AppCompatActivity {
                 .build();
         insuranceAPI = retrofit.create(InsuranceAPI.class);
 
-        for(UserAccountInfo user:userAccountInfoList) {
+       for(UserAccountInfo user:userAccountInfoList) {
             consultantid=user.getConsultant_id();
         }
 

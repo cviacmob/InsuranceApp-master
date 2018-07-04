@@ -65,6 +65,9 @@ public interface InsuranceAPI {
                                                 @Field("file") List<File> file);
 
 
+    @POST("/insapi/files_upload.php")
+    Call<ResponseBody> sample(@Body String file);
+
 
     @POST("/insapi/index.php/triggers")
     Call<ResponseBody> uploadMultiFile(@Body RequestBody file);

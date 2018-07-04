@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                  username = uname.getText().toString();
                 password = pass.getText().toString();
                 username = "rateesh.ayuhas@gmail.com";
-                //password = "1988-09-04";
+                password = "04091988";
                 LoginActivity dateParser = new LoginActivity();
                 try {
                     password = dateParser.getparsedDate(password);

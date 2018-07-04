@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -43,6 +44,8 @@ import android.widget.Toast;
 import com.insurance.insuranceapp.Datamodel.ImagesSaveInfo;
 import com.insurance.insuranceapp.Datamodel.PendingCaseListInfo;
 import com.insurance.insuranceapp.Datamodel.PendingInfo;
+import com.insurance.insuranceapp.Datamodel.ProfileInfo;
+import com.insurance.insuranceapp.Datamodel.RegistrationInfo;
 import com.insurance.insuranceapp.Datamodel.UserAccountInfo;
 import com.insurance.insuranceapp.R;
 import com.insurance.insuranceapp.RestAPI.InsuranceAPI;
@@ -50,6 +53,7 @@ import com.insurance.insuranceapp.RestAPI.InsuranceAPI;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 import com.itextpdf.text.DocumentException;
 import java.io.ByteArrayOutputStream;
@@ -68,6 +72,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
+import retrofit.GsonConverterFactory;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -75,6 +80,7 @@ import static com.activeandroid.Cache.getContext;
 import static com.insurance.insuranceapp.Datamodel.ImagesSaveInfo.getdeleteimages;
 import static com.insurance.insuranceapp.Datamodel.ImagesSaveInfo.getimages;
 import static com.insurance.insuranceapp.Datamodel.UserAccountInfo.getAll;
+import static com.insurance.insuranceapp.Datamodel.UserAccountInfo.getdeletecareprovider;
 
 
 import com.itextpdf.text.Document;
@@ -159,17 +165,20 @@ public class HospitalBlockActivity extends AppCompatActivity implements
     private String AudioSavePath = null;
     private String format;
     private List<UserAccountInfo> userAccountInfoList;
-
-
+    private String domainurl;
+    final String MyPREFERENCES = "MyPrefs";
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital_block);
-
+        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        domainurl = prefs.getString("domainurl","");
+        pendingInfo = (PendingCaseListInfo) getIntent().getSerializableExtra("data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        pendingInfo = (PendingCaseListInfo) getIntent().getSerializableExtra("data");
+        getLogin();
+
         if(pendingInfo!=null){
             setTitle(pendingInfo.getClaim_no() +" "+"Hospital Part Block");
         }
@@ -460,6 +469,59 @@ public class HospitalBlockActivity extends AppCompatActivity implements
 
 
         return pendingInfoList;
+    }
+
+    private void getLogin() {
+        progressDialog = new ProgressDialog(HospitalBlockActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        com.squareup.okhttp.OkHttpClient okHttpClient = new com.squareup.okhttp.OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        retrofit.Retrofit retrofit = new retrofit.Retrofit.Builder()
+                .baseUrl("http://ayuhas.co.in")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        insuranceAPI = retrofit.create(InsuranceAPI.class);
+
+        String case_assign = pendingInfo.getCase_assignment_id();
+
+        final retrofit.Call call = insuranceAPI.sample(case_assign);
+        call.enqueue(new retrofit.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit.Response<ResponseBody> response, retrofit.Retrofit retrofit) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
+                // profileInfoList = response.body();
+
+                if (response.code() == 200) {
+
+                    ResponseBody  pr = response.body();
+
+                }else{
+                    Toast.makeText(HospitalBlockActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(Throwable t) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
+                 Toast.makeText(HospitalBlockActivity.this, "Network Issue" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
