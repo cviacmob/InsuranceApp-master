@@ -41,6 +41,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.insurance.insuranceapp.Datamodel.HospitalBlockInfo;
 import com.insurance.insuranceapp.Datamodel.ImagesSaveInfo;
 import com.insurance.insuranceapp.Datamodel.PendingCaseListInfo;
 import com.insurance.insuranceapp.Datamodel.PendingInfo;
@@ -50,6 +51,8 @@ import com.insurance.insuranceapp.Datamodel.UserAccountInfo;
 import com.insurance.insuranceapp.R;
 import com.insurance.insuranceapp.RestAPI.InsuranceAPI;
 
+import com.insurance.insuranceapp.RestAPI.ResponseJson;
+import com.insurance.insuranceapp.Utilities.RecorderService;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.RequestBody;
@@ -72,7 +75,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
+import retrofit.Callback;
 import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -163,9 +168,11 @@ public class HospitalBlockActivity extends AppCompatActivity implements
     private Button button;
     private PendingCaseListInfo pendingInfo;
     private String AudioSavePath = null;
-    private String format;
+    private String count;
     private List<UserAccountInfo> userAccountInfoList;
     private String domainurl;
+    private File file;
+    private RequestBody fbody1,fbody2,fbody3,fbody4,fbody5,fbody6,fbody7,fbody8,fbody9,fbody10,fbody11,fbody12,fbody13,fbody14;
     final String MyPREFERENCES = "MyPrefs";
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -177,7 +184,11 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         pendingInfo = (PendingCaseListInfo) getIntent().getSerializableExtra("data");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getLogin();
+
+       /* Intent intent = new Intent(HospitalBlockActivity.this, RecorderService.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startService(intent);*/
+        //getLogin();
 
         if(pendingInfo!=null){
             setTitle(pendingInfo.getClaim_no() +" "+"Hospital Part Block");
@@ -261,6 +272,7 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // stopService(new Intent(HospitalBlockActivity.this, RecorderService.class));
                /* Submitted_date = ed_date.getText().toString();
                 if(Submitted_date!=null && !Submitted_date.isEmpty()){
                     Comments = ed_comments.getText().toString();
@@ -270,7 +282,7 @@ public class HospitalBlockActivity extends AppCompatActivity implements
                 }else{
                     textInputLayout.setError("Cannot be empty");
                 }*/
-
+                getLogin();
             }
         });
         backbutton.setOnClickListener(new View.OnClickListener() {
@@ -301,10 +313,12 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         switch (v.getId()) {
 
             case R.id.file_1:
+                count = "1";
                 if (Build.VERSION.SDK_INT >= 23)
                 {
                     if (checkPermission())
                     {
+
                         selectImage();
                     } else {
                         requestPermission(); // Code for permission
@@ -319,58 +333,72 @@ public class HospitalBlockActivity extends AppCompatActivity implements
                 break;
 
             case R.id.file2:
-                mode = true;
-                if(mode){
-                    pfdconvert();
+                count = "2";
+                selectImage();
+               /* if(mode){
+                  //  pfdconvert();
                 }else {
                     selectImage();
                 }
-
+*/
 
                 break;
 
             case R.id.file3:
+                count = "3";
                 selectImage();
                 break;
             case R.id.file4:
+                count = "4";
                 selectImage();
                 break;
 
             case R.id.file5:
+                count = "5";
                 selectImage();
                 break;
             case R.id.file6:
+                count = "6";
                 selectImage();
                 break;
 
             case R.id.file7:
+                count = "7";
                 selectImage();
                 break;
             case R.id.file8:
+                count = "8";
                 selectImage();
                 break;
 
             case R.id.file9:
+                count = "9";
                 selectImage();
                 break;
             case R.id.file10:
+                count = "10";
                 selectImage();
                 break;
 
             case R.id.file11:
+                count = "10";
                 selectImage();
                 break;
             case R.id.file12:
+                count = "12";
                 selectImage();
                 break;
 
             case R.id.file13:
+                count = "13";
                 selectImage();
                 break;
             case R.id.file14:
+                count = "14";
                 selectImage();
                 break;
             case R.id.file19:
+                count = "19";
                 selectImage();
                 break;
 
@@ -471,58 +499,7 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         return pendingInfoList;
     }
 
-    private void getLogin() {
-        progressDialog = new ProgressDialog(HospitalBlockActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        com.squareup.okhttp.OkHttpClient okHttpClient = new com.squareup.okhttp.OkHttpClient();
-        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
-        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
-        retrofit.Retrofit retrofit = new retrofit.Retrofit.Builder()
-                .baseUrl("http://ayuhas.co.in")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
-        insuranceAPI = retrofit.create(InsuranceAPI.class);
 
-        String case_assign = pendingInfo.getCase_assignment_id();
-
-        final retrofit.Call call = insuranceAPI.sample(case_assign);
-        call.enqueue(new retrofit.Callback<ResponseBody>() {
-            @Override
-            public void onResponse(retrofit.Response<ResponseBody> response, retrofit.Retrofit retrofit) {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-
-                // profileInfoList = response.body();
-
-                if (response.code() == 200) {
-
-                    ResponseBody  pr = response.body();
-
-                }else{
-                    Toast.makeText(HospitalBlockActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-
-            @Override
-            public void onFailure(Throwable t) {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-
-                 Toast.makeText(HospitalBlockActivity.this, "Network Issue" + t, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -611,12 +588,12 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
+        file = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
         FileOutputStream fo;
         try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
+            file.createNewFile();
+            fo = new FileOutputStream(file);
             fo.write(bytes.toByteArray());
             fo.close();
 
@@ -627,22 +604,23 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         }
         Random ran =new Random();
         int  n = ran.nextInt(500) + 1;
-       String pa =  destination.getPath();
-        imagesSaveInfo = new ImagesSaveInfo();
+        AudioSavePath =  file.getPath();
+       /* imagesSaveInfo = new ImagesSaveInfo();
         imagesSaveInfo.setBlockName("HospitalBlock");
         imagesSaveInfo.setCliamNumber(pendingInfo.getClaim_no());
         imagesSaveInfo.setImageID(String.valueOf(n));
         imagesSaveInfo.setImagesPath(pa);
         imagesSaveInfo.save();
-
+*/
         String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), thumbnail, "", null);
-
-
+        pfdconvert();
+       // getLogin();
 
 
     }
 
     private void pfdconvert(){
+        HospitalBlockInfo hos = new HospitalBlockInfo();
         List<ImagesSaveInfo> path =  getimages();
         ImagesSaveInfo img = new ImagesSaveInfo();
         FileOutputStream fileOutputStream;
@@ -650,29 +628,157 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         Document convertToPdf = new Document(PageSize.LETTER, 400, 400, 400, 400);
 
             try {
-                for(int i = 0; i <path.size();i++) {
-                    pa = path.get(i).getImagesPath();
-                    String FileToPdf = pa.replace("." + "jpg", ".pdf");
+
+                   // pa = path.get(i).getImagesPath();
+                    String FileToPdf = AudioSavePath.replace("." + "jpg", ".pdf");
+
                     fileOutputStream = new FileOutputStream(FileToPdf);
+
                     PdfWriter.getInstance(convertToPdf,fileOutputStream);
                     convertToPdf.open();
-                    Image convertBmp = Image.getInstance(pa);
-
+                    Image convertBmp = Image.getInstance(AudioSavePath);
                     convertToPdf.add(convertBmp);
+                    convertToPdf.close();
+                File fileupload = new File(FileToPdf);
+
+                    if(count.equalsIgnoreCase("1")){
+                        hos.setDoc_company_authorisation_letter(fileupload);
+                         fbody1 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("2"))
+                    {
+                        hos.setDoc_investigation_report(fileupload);
+                        fbody2= RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("3"))
+                    {
+
+                        hos.setDoc_doctor_questionarie(fileupload);
+                        fbody3 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }/*else if(count.equalsIgnoreCase("4"))
+                    {
+                        hos.setCase_sheet(fileupload);
+                        fbody4 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("5"))
+                    {
+                        hos.setDoctor_quetionarie(fileupload);
+                        fbody5 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("6"))
+                    {
+                        hos.setIp_register(fileupload);
+                        fbody6 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("7"))
+                    {
+                        hos.setLab_register(fileupload);
+                        fbody7 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("8"))
+                    {
+                        hos.setFinal_bill(fileupload);
+
+                            fbody8 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
 
 
-                }
-                convertToPdf.close();
+
+                    }else if(count.equalsIgnoreCase("9"))
+                    {
+                        hos.setPrevious_op_ip_records(fileupload);
+                        fbody9 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("10"))
+                    {
+                        hos.setField_investigation_report(fileupload);
+                        fbody10 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("11"))
+                    {
+                        hos.setHospital_snaps(fileupload);
+                        fbody11 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("12"))
+                    {
+                        hos.setOthers(fileupload);
+                        fbody12 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("13"))
+                    {
+                        hos.setMedical_record_bill(fileupload);
+                        fbody13 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }
+*/
+
             } catch (Exception e) {
                 System.out.println(e.toString());
             }
 
-        mode = false;
-        getdeleteimages();
+
     }
 
 
+    private void getLogin() {
+        progressDialog = new ProgressDialog(HospitalBlockActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        com.squareup.okhttp.OkHttpClient okHttpClient = new com.squareup.okhttp.OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+        retrofit.Retrofit retrofit = new retrofit.Retrofit.Builder()
+                .baseUrl("http://ayuhas.co.in")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        insuranceAPI = retrofit.create(InsuranceAPI.class);
 
+        String case_assign = pendingInfo.getCase_assignment_id();
+        String case_reg = pendingInfo.getClaim_no();
+        case_assign = "7";
+       // File file = new File(AudioSavePath);
+
+
+        MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
+
+        builder.addFormDataPart("case_assignment_id", "9");
+        builder.addFormDataPart("doc_company_authorisation_letter", case_reg+"_"+"doc_company_authorisation_letter.pdf", fbody1);
+//        builder.addFormDataPart("doc_investigation_report", case_reg+"_"+"doc_investigation_report.pdf", fbody2);
+//        builder.addFormDataPart("doc_doctor_questionarie", case_reg+"_"+"doc_doctor_questionarie.pdf", fbody3);
+       /* builder.addFormDataPart("case_sheet", case_reg+"_"+"doc_investigation_report.pdf", fbody4);
+        builder.addFormDataPart("doctor_quetionarie", case_reg+"_"+"doctor_quetionarie.pdf", fbody5);
+        builder.addFormDataPart("ip_register", case_reg+"_"+"ip_register.pdf", fbody6);
+        builder.addFormDataPart("lab_register", case_reg+"_"+"lab_register.pdf", fbody7);
+        builder.addFormDataPart("final_bill", case_reg+"_"+"final_bill.pdf", fbody8);
+        builder.addFormDataPart("previous_op_ip_records", case_reg+"_"+"previous_op_ip_records.pdf", fbody9);
+        builder.addFormDataPart("field_investigation_report", case_reg+"_"+"field_investigation_report.pdf", fbody10);
+        builder.addFormDataPart("hospital_snaps", case_reg+"_"+"hospital_snaps.pdf", fbody11);
+        builder.addFormDataPart("others", case_reg+"_"+"others.pdf", fbody12);
+        builder.addFormDataPart("medical_record_bill", case_reg+"_"+"medical_record_bill.pdf", fbody13);
+       */
+      //  builder.addFormDataPart("any_comments", "adfda");
+
+        builder.addFormDataPart("doc_store_status", "save");
+        final Call call = insuranceAPI.sample(builder.build());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit.Response<ResponseBody> response, Retrofit retrofit) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+                if (response.code() == 200) {
+
+                    ResponseBody  pr = response.body();
+
+                }else{
+                     Toast.makeText(HospitalBlockActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+
+                Toast.makeText(HospitalBlockActivity.this, "Network Issue" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
 
 
 

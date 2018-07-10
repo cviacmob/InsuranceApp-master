@@ -64,9 +64,9 @@ public interface InsuranceAPI {
                                                 @Field("trigger_answer") List<String> trigger_answer,
                                                 @Field("file") List<File> file);
 
-
     @POST("/insapi/files_upload.php")
-    Call<ResponseBody> sample(@Body String file);
+    Call<ResponseBody> sample(@Body RequestBody body);
+
 
 
     @POST("/insapi/index.php/triggers")

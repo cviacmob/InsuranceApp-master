@@ -7,7 +7,7 @@ package com.insurance.insuranceapp.RestAPI;
 public class ResponseJson {
 
     private String code;
-    private String description;
+    private String desc;
 
     public String getCode() {
         return code;
@@ -16,10 +16,10 @@ public class ResponseJson {
         this.code = code;
     }
     public String getDescription() {
-        return description;
+        return desc;
     }
     public void setDescription(String description) {
-        this.description = description;
+        this.desc = description;
     }
 
 

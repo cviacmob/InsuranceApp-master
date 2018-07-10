@@ -16,7 +16,7 @@ import com.insurance.insuranceapp.Datamodel.RegistrationInfo;
 import com.insurance.insuranceapp.Datamodel.UserAccountInfo;
 import com.insurance.insuranceapp.R;
 import com.insurance.insuranceapp.RestAPI.InsuranceAPI;
-import com.insurance.insuranceapp.RestAPI.ResponseJson;
+
 import com.insurance.insuranceapp.Utilities.InsApp;
 import com.insurance.insuranceapp.Utilities.Prefs;
 
@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
 
-                  //  Toast.makeText(LoginActivity.this, "Network Issue" + t, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Network Issue" + t, Toast.LENGTH_SHORT).show();
 
                 }
             });
