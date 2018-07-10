@@ -733,9 +733,9 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
 
         builder.addFormDataPart("case_assignment_id", "9");
-        builder.addFormDataPart("doc_company_authorisation_letter", case_reg+"_"+"doc_company_authorisation_letter.pdf", fbody1);
-//        builder.addFormDataPart("doc_investigation_report", case_reg+"_"+"doc_investigation_report.pdf", fbody2);
-//        builder.addFormDataPart("doc_doctor_questionarie", case_reg+"_"+"doc_doctor_questionarie.pdf", fbody3);
+       // builder.addFormDataPart("doc_company_authorisation_letter", case_reg+"_"+"doc_company_authorisation_letter.pdf", fbody1);
+       builder.addFormDataPart("doc_investigation_report", case_reg+"_"+"doc_investigation_report.pdf", fbody2);
+       builder.addFormDataPart("doc_doctor_questionarie", case_reg+"_"+"doc_doctor_questionarie.pdf", fbody3);
        /* builder.addFormDataPart("case_sheet", case_reg+"_"+"doc_investigation_report.pdf", fbody4);
         builder.addFormDataPart("doctor_quetionarie", case_reg+"_"+"doctor_quetionarie.pdf", fbody5);
         builder.addFormDataPart("ip_register", case_reg+"_"+"ip_register.pdf", fbody6);
@@ -748,7 +748,7 @@ public class HospitalBlockActivity extends AppCompatActivity implements
         builder.addFormDataPart("medical_record_bill", case_reg+"_"+"medical_record_bill.pdf", fbody13);
        */
       //  builder.addFormDataPart("any_comments", "adfda");
-
+        builder.addFormDataPart("mrd_amount", "50");
         builder.addFormDataPart("doc_store_status", "save");
         final Call call = insuranceAPI.sample(builder.build());
         call.enqueue(new Callback<ResponseBody>() {
