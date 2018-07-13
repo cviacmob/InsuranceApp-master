@@ -230,27 +230,7 @@ public class BillVerificationHospital extends AppCompatActivity implements
             }
         });
 
-        if(checkPermission()){
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-            format = simpleDateFormat.format(new Date());
-            AudioSavePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + format + ".mp3";
-            MediaRecorderReady();
-
-            try {
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-            } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        else {
-            requestPermission();
-        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +239,7 @@ public class BillVerificationHospital extends AppCompatActivity implements
                     comments = ed_comments.getText().toString();
                     Convanceamt = ed_convance.getText().toString();
 
-                mediaRecorder.stop();
+
                 //sendAudio();
             }
         });
@@ -281,13 +261,7 @@ public class BillVerificationHospital extends AppCompatActivity implements
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void MediaRecorderReady(){
-        mediaRecorder=new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setOutputFile(AudioSavePath);
-    }
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(BillVerificationHospital.this, new String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, RequestPermissionCode);
     }

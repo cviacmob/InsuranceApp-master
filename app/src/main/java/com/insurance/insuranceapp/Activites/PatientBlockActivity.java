@@ -39,12 +39,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.insurance.insuranceapp.Datamodel.HospitalBlockInfo;
+import com.insurance.insuranceapp.Datamodel.ImagesSaveInfo;
+import com.insurance.insuranceapp.Datamodel.PatientBlockInfo;
 import com.insurance.insuranceapp.Datamodel.PendingCaseListInfo;
 import com.insurance.insuranceapp.Datamodel.PendingInfo;
 import com.insurance.insuranceapp.Datamodel.UserAccountInfo;
 import com.insurance.insuranceapp.R;
 import com.insurance.insuranceapp.RestAPI.InsuranceAPI;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.RequestBody;
@@ -67,6 +74,7 @@ import retrofit.Call;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.insurance.insuranceapp.Datamodel.ImagesSaveInfo.getimages;
 
 public class PatientBlockActivity extends AppCompatActivity implements
         View.OnClickListener {
@@ -91,10 +99,11 @@ public class PatientBlockActivity extends AppCompatActivity implements
     private String format;
     ProgressDialog progressDialog;
     InsuranceAPI insuranceAPI;
+    private File file;
     private List<UserAccountInfo> userAccountInfoList;
     private PendingCaseListInfo pendingInfo;
     public static final int RequestPermissionCode = 1;
-
+    private RequestBody fbody1,fbody2,fbody3,fbody4,fbody5,fbody6,fbody7,fbody8,fbody9,fbody10,fbody11,fbody12,fbody13,fbody14;
     private String string1= "<font color='#000000'>Patient Doctor Questionarie  </font>" + "<font color='#FF0000'>*</font>";
     private String string2= "<font color='#000000'>Patient ID Proof </font>" + "<font color='#FF0000'>*</font>";
     private String string3= "<font color='#000000'>Patient Questionnaire </font>" + "<font color='#FF0000'>*</font>";
@@ -107,16 +116,18 @@ public class PatientBlockActivity extends AppCompatActivity implements
     private String triggerreply = "<font color='#000000'>Trigger Reply </font>" + "<font color='#FF0000'>*</font>";
     private EditText ed_comments,ed_convance;
     private String comments ="",convance = "",temp ="";
-
+    private String count;
     private Button submit;
     private List<PendingInfo> pendingInfoList;
     private RelativeLayout relativeLayout;
+    private Button bt_save;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_block);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        bt_save = (Button)findViewById(R.id.care_save);
         pendingInfo = (PendingCaseListInfo) getIntent().getSerializableExtra("data");
         if(pendingInfo!=null){
             setTitle(pendingInfo.getClaim_no() +" "+"Patient Part");
@@ -124,7 +135,12 @@ public class PatientBlockActivity extends AppCompatActivity implements
 
         createEditTextView();
 
-
+        bt_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendAudio();
+            }
+        });
         ed_comments = (EditText)findViewById(R.id.ed_comments);
 
         ed_convance = (EditText)findViewById(R.id.ed_convence);
@@ -172,27 +188,7 @@ public class PatientBlockActivity extends AppCompatActivity implements
         file19 = (TextView)findViewById(R.id.file19);
         file19.setOnClickListener((View.OnClickListener) this);
 
-        if(checkPermission()){
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-            format = simpleDateFormat.format(new Date());
-            AudioSavePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + format + ".mp3";
-            MediaRecorderReady();
-
-            try {
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-            } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        else {
-            requestPermission();
-        }
 
 
 
@@ -224,90 +220,8 @@ public class PatientBlockActivity extends AppCompatActivity implements
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void MediaRecorderReady(){
-        mediaRecorder=new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setOutputFile(AudioSavePath);
-    }
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(PatientBlockActivity.this, new String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, RequestPermissionCode);
-    }
 
 
-    private void sendAudio(){
-        String consultID = "";
-        progressDialog = new ProgressDialog(PatientBlockActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Submitting...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        com.squareup.okhttp.OkHttpClient okHttpClient = new com.squareup.okhttp.OkHttpClient();
-        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
-        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
-
-        retrofit.Retrofit retrofit = new retrofit.Retrofit.Builder()
-                .baseUrl(getBaseContext().getString(R.string.DomainURL))
-                .client(okHttpClient)
-                .build();
-
-        insuranceAPI = retrofit.create(InsuranceAPI.class);
-        for(UserAccountInfo userAccountInfo : userAccountInfoList){
-            consultID = userAccountInfo.getConsultant_id();
-        }
-        String casetype = pendingInfo.getCase_type();
-        String assignstatus = pendingInfo.getAssign_status();
-        String CaseId = pendingInfo.getCase_id();
-        String CaseassignmentId= pendingInfo.getCase_assignment_id();
-        String claim_no = pendingInfo.getClaim_no();
-        String case_type_id = pendingInfo.getCase_type_id();
-        File file = new File(AudioSavePath);
-        RequestBody fbody = RequestBody.create(MediaType.parse("mp3/*"),file);
-        String submit = "submit";
-        MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
-        builder.addFormDataPart("consultant_id", consultID);
-        builder.addFormDataPart("case_type", casetype);
-        builder.addFormDataPart("assign_status", assignstatus);
-        builder.addFormDataPart("case_id",CaseId);
-        builder.addFormDataPart("case_assignment_id", CaseassignmentId);
-        builder.addFormDataPart("claim_no", claim_no);
-        builder.addFormDataPart("case_type_id", case_type_id);
-        builder.addFormDataPart("fileToUpload", claim_no+"_"+format+".mp3", fbody);
-        builder.addFormDataPart("submit", submit);
-        Call<ResponseBody> call = insuranceAPI.sendAudio(builder.build());
-        //  Call<ResponseBody> call = insuranceAPI.sendAudio(consultID,casetype,assignstatus,CaseId,CaseassignmentId,claim_no,case_type_id,fbody,submit);
-        call.enqueue(new retrofit.Callback<ResponseBody>() {
-            @Override
-            public void onResponse(retrofit.Response<ResponseBody> response, retrofit.Retrofit retrofit) {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-                ResponseBody res = response.body();
-                try {
-                    String autocompleteOptions = res.string();
-                    //   Toast.makeText(HospitalBlockActivity.this, autocompleteOptions, Toast.LENGTH_SHORT).show();
-                    File file = new File(AudioSavePath);
-                    boolean deleted = file.delete();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-            @Override
-            public void onFailure(Throwable t) {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-                String err = t.getMessage() == null ? "" : t.getMessage();
-                Log.e("RETROFIT", err);
-                // Toast.makeText(HospitalBlockActivity.this, "Audio_file Failed: " + t, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     protected void createEditTextView() {
@@ -413,40 +327,65 @@ public class PatientBlockActivity extends AppCompatActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.file_1:
-                selectImage();
+            case R.id.file1:
+                count = "1";
+                if (Build.VERSION.SDK_INT >= 23)
+                {
+                    if (checkPermission())
+                    {
+
+                        selectImage();
+                    } else {
+                        requestPermission(); // Code for permission
+                    }
+                }
+                else
+                {
+                    selectImage();
+                    // Code for Below 23 API Oriented Device
+                    // Do next code
+                }
                 break;
 
             case R.id.file2:
+                count = "2";
                 selectImage();
                 break;
 
             case R.id.file3:
+                count = "3";
                 selectImage();
                 break;
             case R.id.file4:
+                count = "4";
                 selectImage();
                 break;
 
             case R.id.file5:
+                count = "5";
                 selectImage();
                 break;
             case R.id.file6:
+                count = "6";
                 selectImage();
                 break;
 
             case R.id.file7:
+                count = "7";
                 selectImage();
                 break;
             case R.id.file8:
+                count = "8";
                 selectImage();
                 break;
 
             case R.id.file9:
+                count = "9";
                 selectImage();
                 break;
 
             case R.id.file19:
+                count = "10";
                 selectImage();
                 break;
 
@@ -469,6 +408,14 @@ public class PatientBlockActivity extends AppCompatActivity implements
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
             choosePhotoFromGallary();
+        }
+    }
+    private void requestPermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(PatientBlockActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(PatientBlockActivity.this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(PatientBlockActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_CODE);
         }
     }
     public void choosePhotoFromGallary() {
@@ -517,21 +464,7 @@ public class PatientBlockActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if (requestCode == SELECT_FILE) {
-            if (data != null) {
-                Uri contentURI = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    String path = saveImage(bitmap);
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(PatientBlockActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        } else if (resultCode == Activity.RESULT_OK) {
+    if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
@@ -539,45 +472,17 @@ public class PatientBlockActivity extends AppCompatActivity implements
 
 
     }
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-        // have the object build the directory structure, if needed.
-        if (!destination.exists()) {
-            destination.mkdirs();
-        }
-
-        try {
-            File f = new File(destination, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
 
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
+        file = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
         FileOutputStream fo;
         try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
+            file.createNewFile();
+            fo = new FileOutputStream(file);
             fo.write(bytes.toByteArray());
             fo.close();
             // uploadProfileImage(destination.getPath());
@@ -587,10 +492,142 @@ public class PatientBlockActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
         String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), thumbnail, "", null);
-        /*Picasso.with(this).load(path).resize(350, 350).transform(new CircleTransform())
-                .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(ivImage);*/
-        //ivImage.setImageBitmap(thumbnail);
+        AudioSavePath =  file.getPath();
 
+        pfdconvert();
+    }
+    private void pfdconvert(){
+        PatientBlockInfo hos = new PatientBlockInfo();
+        List<ImagesSaveInfo> path =  getimages();
+        ImagesSaveInfo img = new ImagesSaveInfo();
+        FileOutputStream fileOutputStream;
+        String pa = "";
+        Document convertToPdf = new Document(PageSize.LETTER, 400, 400, 400, 400);
+
+        try {
+
+            // pa = path.get(i).getImagesPath();
+            String FileToPdf = AudioSavePath.replace("." + "jpg", ".pdf");
+
+            fileOutputStream = new FileOutputStream(FileToPdf);
+
+            PdfWriter.getInstance(convertToPdf,fileOutputStream);
+            convertToPdf.open();
+            Image convertBmp = Image.getInstance(AudioSavePath);
+            convertToPdf.add(convertBmp);
+            convertToPdf.close();
+            File fileupload = new File(FileToPdf);
+
+            if(count.equalsIgnoreCase("1")){
+                hos.setPatient_doctor_questionarie(fileupload);
+                fbody1 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+            }else if(count.equalsIgnoreCase("2"))
+            {
+                hos.setPatient_id_proof(fileupload);
+                fbody2= RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+            }else if(count.equalsIgnoreCase("3"))
+            {
+
+                hos.setPatient_questionarie(fileupload);
+                fbody3 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+            }else if(count.equalsIgnoreCase("4"))
+                    {
+                        hos.setPrevious_op_ip_records(fileupload);
+                        fbody4 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("5"))
+                    {
+                        hos.setPatient_narration_letter(fileupload);
+                        fbody5 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("6"))
+                    {
+                        hos.setPatient_authorization(fileupload);
+                        fbody6 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("7"))
+                    {
+                        hos.setQuery_reply(fileupload);
+                        fbody7 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+                    }else if(count.equalsIgnoreCase("8"))
+                    {
+                        hos.setOthers(fileupload);
+
+                            fbody8 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
+
+
+
+                    }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+
+    }
+    private void sendAudio(){
+        String consultID = "";
+        progressDialog = new ProgressDialog(PatientBlockActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Submitting...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        com.squareup.okhttp.OkHttpClient okHttpClient = new com.squareup.okhttp.OkHttpClient();
+        okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
+
+        retrofit.Retrofit retrofit = new retrofit.Retrofit.Builder()
+                .baseUrl(getBaseContext().getString(R.string.DomainURL1))
+                .client(okHttpClient)
+                .build();
+
+        insuranceAPI = retrofit.create(InsuranceAPI.class);
+
+        String case_assign = pendingInfo.getCase_assignment_id();
+        String case_reg = pendingInfo.getClaim_no();
+        File file = new File(AudioSavePath);
+        RequestBody fbody = RequestBody.create(MediaType.parse("pdf/*"),file);
+        String submit = "submit";
+        MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
+        builder.addFormDataPart("case_assignment_id", case_assign);
+        builder.addFormDataPart("patient_doctor_questionarie",case_reg+"_"+"patient_doctor_questionarie.pdf", fbody1);
+        builder.addFormDataPart("patient_id_proof",case_reg+"_"+"patient_id_proof.pdf", fbody2);
+        builder.addFormDataPart("patient_questionarie",case_reg+"_"+"patient_questionarie.pdf",fbody3);
+        builder.addFormDataPart("previous_op_ip_records",case_reg+"_"+"previous_op_ip_records.pdf", fbody1);
+        builder.addFormDataPart("patient_narration_letter", case_reg+"_"+"patient_narration_letter.pdf",fbody1);
+        builder.addFormDataPart("patient_authorization",case_reg+"_"+"patient_authorization.pdf", fbody1);
+        builder.addFormDataPart("query_reply", case_reg+"_"+"query_reply.pdf",fbody);
+        builder.addFormDataPart("others", case_reg+"_"+"others.pdf",fbody1);
+        builder.addFormDataPart("save", "save");
+        Call<ResponseBody> call = insuranceAPI.sample(builder.build());
+        //  Call<ResponseBody> call = insuranceAPI.sendAudio(consultID,casetype,assignstatus,CaseId,CaseassignmentId,claim_no,case_type_id,fbody,submit);
+        call.enqueue(new retrofit.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit.Response<ResponseBody> response, retrofit.Retrofit retrofit) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+                ResponseBody res = response.body();
+                try {
+                    String autocompleteOptions = res.string();
+                    //   Toast.makeText(HospitalBlockActivity.this, autocompleteOptions, Toast.LENGTH_SHORT).show();
+                    File file = new File(AudioSavePath);
+                    boolean deleted = file.delete();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+                String err = t.getMessage() == null ? "" : t.getMessage();
+                Log.e("RETROFIT", err);
+                // Toast.makeText(HospitalBlockActivity.this, "Audio_file Failed: " + t, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

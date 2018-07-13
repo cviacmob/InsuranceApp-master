@@ -219,27 +219,7 @@ public class IntimationCase extends AppCompatActivity implements
         file31 = (TextView)findViewById(R.id.file31);
         file31.setOnClickListener((View.OnClickListener) this);
 
-        if(checkPermission()){
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-            format = simpleDateFormat.format(new Date());
-            AudioSavePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + format + ".mp3";
-            MediaRecorderReady();
-
-            try {
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-            } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        else {
-            requestPermission();
-        }
 
         backbutton = (Button)findViewById(R.id.bt_back);
         backbutton.setOnClickListener(new View.OnClickListener() {
@@ -252,12 +232,6 @@ public class IntimationCase extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
-                    comments = ed_comments.getText().toString();
-
-                    Convanceamt = ed_convance.getText().toString();
-
-                mediaRecorder.stop();
-                //sendAudio();
             }
         });
 
@@ -271,13 +245,7 @@ public class IntimationCase extends AppCompatActivity implements
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void MediaRecorderReady(){
-        mediaRecorder=new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setOutputFile(AudioSavePath);
-    }
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(IntimationCase.this, new String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, RequestPermissionCode);
     }
@@ -604,9 +572,7 @@ public class IntimationCase extends AppCompatActivity implements
             e.printStackTrace();
         }
         String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), thumbnail, "", null);
-        /*Picasso.with(this).load(path).resize(350, 350).transform(new CircleTransform())
-                .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(ivImage);*/
-        //ivImage.setImageBitmap(thumbnail);
+
 
     }
 
