@@ -167,7 +167,14 @@ public class PatientBlockActivity extends AppCompatActivity implements
         submit = (Button)findViewById(R.id.bt_submit);
         backbutton = (Button)findViewById(R.id.bt_back);
 
-
+        filename1 = (TextView) findViewById(R.id.filename1);
+        filename2 = (TextView) findViewById(R.id.filename2);
+        filename3 = (TextView) findViewById(R.id.filename3);
+        filename4 = (TextView) findViewById(R.id.filename4);
+        filename5 = (TextView) findViewById(R.id.filename5);
+        filename6 = (TextView) findViewById(R.id.filename6);
+        filename7 = (TextView) findViewById(R.id.filename7);
+        filename8 = (TextView) findViewById(R.id.filename8);
         file1 = (TextView)findViewById(R.id.file1);
         file1.setOnClickListener((View.OnClickListener) this);
         file2 = (TextView)findViewById(R.id.file2);
@@ -200,7 +207,7 @@ public class PatientBlockActivity extends AppCompatActivity implements
                     convance = ed_convance.getText().toString();
                     comments = ed_comments.getText().toString();
 
-                mediaRecorder.stop();
+
               //  sendAudio();
             }
         });
@@ -214,10 +221,13 @@ public class PatientBlockActivity extends AppCompatActivity implements
 
     }
 
-    public boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(PatientBlockActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -520,36 +530,43 @@ public class PatientBlockActivity extends AppCompatActivity implements
 
             if(count.equalsIgnoreCase("1")){
                 hos.setPatient_doctor_questionarie(fileupload);
+                filename1.setText(fileupload.getPath());
                 fbody1 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
             }else if(count.equalsIgnoreCase("2"))
             {
                 hos.setPatient_id_proof(fileupload);
+                filename2.setText(fileupload.getPath());
                 fbody2= RequestBody.create(MediaType.parse("pdf/*"),fileupload);
             }else if(count.equalsIgnoreCase("3"))
             {
 
                 hos.setPatient_questionarie(fileupload);
+                filename3.setText(fileupload.getPath());
                 fbody3 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
             }else if(count.equalsIgnoreCase("4"))
                     {
                         hos.setPrevious_op_ip_records(fileupload);
+                        filename4.setText(fileupload.getPath());
                         fbody4 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
                     }else if(count.equalsIgnoreCase("5"))
                     {
                         hos.setPatient_narration_letter(fileupload);
+                        filename5.setText(fileupload.getPath());
                         fbody5 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
                     }else if(count.equalsIgnoreCase("6"))
                     {
                         hos.setPatient_authorization(fileupload);
+                        filename6.setText(fileupload.getPath());
                         fbody6 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
                     }else if(count.equalsIgnoreCase("7"))
                     {
                         hos.setQuery_reply(fileupload);
+                        filename7.setText(fileupload.getPath());
                         fbody7 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
                     }else if(count.equalsIgnoreCase("8"))
                     {
                         hos.setOthers(fileupload);
-
+                        filename8.setText(fileupload.getPath());
                             fbody8 = RequestBody.create(MediaType.parse("pdf/*"),fileupload);
 
 

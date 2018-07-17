@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.insurance.insuranceapp.Datamodel.PendingCaseListInfo;
 import com.insurance.insuranceapp.Datamodel.PendingInfo;
+import com.insurance.insuranceapp.Datamodel.TriggersInfo;
 import com.insurance.insuranceapp.Datamodel.UserAccountInfo;
 import com.insurance.insuranceapp.R;
 import com.insurance.insuranceapp.RestAPI.InsuranceAPI;
@@ -57,11 +58,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
+import retrofit.GsonConverterFactory;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -79,6 +82,14 @@ public class PersonalAccidentActivity extends AppCompatActivity implements
     MediaRecorder mediaRecorder ;
     private String AudioSavePath = null;
     private String format;
+    private String temp1 = "";
+    private int count =0;
+    private EditText[] ed;
+    private TextView filename;
+    private String triggerID = "";
+    private TextView[] filenameholder;
+    List<EditText> allEds = new ArrayList<EditText>();
+    private List<TriggersInfo> triggersInfoList;
     ProgressDialog progressDialog;
     InsuranceAPI insuranceAPI;
     private List<UserAccountInfo> userAccountInfoList;
@@ -150,10 +161,12 @@ public class PersonalAccidentActivity extends AppCompatActivity implements
     private String triggerreply = "<font color='#000000'>Trigger Reply </font>" + "<font color='#FF0000'>*</font>";
     private Button submit;
     private String comments = "", Convanceamt = "", temp = "";
-
+    private List<String> triggerListId;
+    private List<String> triggeranswer;
+    private List<File> triggerfiles = new ArrayList<>();
     private List<PendingInfo> pendingInfoList;
     private RelativeLayout relativeLayout;
-
+    private List<File> triggerlistitem;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +174,11 @@ public class PersonalAccidentActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_death_cliam);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Personal Accident");
+        pendingInfo = (PendingCaseListInfo) getIntent().getSerializableExtra("data");
+        if(pendingInfo!=null){
+            setTitle(pendingInfo.getClaim_no() +" "+"SME");
+        }
+        gettriggerslist(pendingInfo);
 
         ed_comments = (EditText) findViewById(R.id.ed_comments);
 
@@ -237,16 +254,16 @@ public class PersonalAccidentActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
-                    comments = ed_comments.getText().toString();
+                /*    comments = ed_comments.getText().toString();
 
                     Convanceamt = ed_convance.getText().toString();
 
-
+*/
             }
         });
 
 
-        createEditTextView();
+
 
 
         file1 = (TextView)findViewById(R.id.file1);
@@ -306,106 +323,99 @@ public class PersonalAccidentActivity extends AppCompatActivity implements
 
 
     }
+    private void gettriggerslist(PendingCaseListInfo pendingInfo) {
 
-    public boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
-    }
-
-
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(PersonalAccidentActivity.this, new String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, RequestPermissionCode);
-    }
-
-/*    private void sendAudio(){
-        String consultID = "";
+        String consultantid = "";
         progressDialog = new ProgressDialog(PersonalAccidentActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Submitting...");
+        progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
         com.squareup.okhttp.OkHttpClient okHttpClient = new com.squareup.okhttp.OkHttpClient();
         okHttpClient.setConnectTimeout(120000, TimeUnit.MILLISECONDS);
         okHttpClient.setReadTimeout(120000, TimeUnit.MILLISECONDS);
-
         retrofit.Retrofit retrofit = new retrofit.Retrofit.Builder()
-                .baseUrl(getBaseContext().getString(R.string.DomainURL))
+                .baseUrl("http://ayuhas.co.in")
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
-
         insuranceAPI = retrofit.create(InsuranceAPI.class);
-        for(UserAccountInfo userAccountInfo : userAccountInfoList){
-            consultID = userAccountInfo.getConsultant_id();
-        }
-        String casetype = pendingInfo.getCase_type();
-        String assignstatus = pendingInfo.getAssign_status();
-        String CaseId = pendingInfo.getCase_id();
-        String CaseassignmentId= pendingInfo.getCase_assignment_id();
-        String claim_no = pendingInfo.getClaim_no();
-        String case_type_id = pendingInfo.getCase_type_id();
-        File file = new File(AudioSavePath);
-        RequestBody fbody = RequestBody.create(MediaType.parse("mp3/*"),file);
-        String submit = "submit";
-        MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
-        builder.addFormDataPart("consultant_id", consultID);
-        builder.addFormDataPart("case_type", casetype);
-        builder.addFormDataPart("assign_status", assignstatus);
-        builder.addFormDataPart("case_id",CaseId);
-        builder.addFormDataPart("case_assignment_id", CaseassignmentId);
-        builder.addFormDataPart("claim_no", claim_no);
-        builder.addFormDataPart("case_type_id", case_type_id);
-        builder.addFormDataPart("fileToUpload", claim_no+"_"+format+".mp3", fbody);
-        builder.addFormDataPart("submit", submit);
-        Call<ResponseBody> call = insuranceAPI.sendAudio(builder.build());
-        //  Call<ResponseBody> call = insuranceAPI.sendAudio(consultID,casetype,assignstatus,CaseId,CaseassignmentId,claim_no,case_type_id,fbody,submit);
-        call.enqueue(new retrofit.Callback<ResponseBody>() {
+        String mode = "";
+        String case_assign = pendingInfo.getCase_assignment_id();
+
+        triggerListId = Collections.singletonList("");
+        Call<List<TriggersInfo>> call = insuranceAPI.gettriggersdetails(case_assign, mode, triggerListId, triggeranswer, triggerlistitem);
+        call.enqueue(new retrofit.Callback<List<TriggersInfo>>() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
-            public void onResponse(retrofit.Response<ResponseBody> response, retrofit.Retrofit retrofit) {
+            public void onResponse(retrofit.Response<List<TriggersInfo>> response, retrofit.Retrofit retrofit) {
                 if (progressDialog != null) {
                     progressDialog.dismiss();
                 }
-                ResponseBody res = response.body();
-                try {
-                    String autocompleteOptions = res.string();
-                    //   Toast.makeText(HospitalBlockActivity.this, autocompleteOptions, Toast.LENGTH_SHORT).show();
-                    File file = new File(AudioSavePath);
-                    boolean deleted = file.delete();
+                triggersInfoList = response.body();
+                if (triggersInfoList != null) {
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    createEditTextView();
                 }
 
-
             }
+
+
             @Override
             public void onFailure(Throwable t) {
                 if (progressDialog != null) {
                     progressDialog.dismiss();
                 }
-                String err = t.getMessage() == null ? "" : t.getMessage();
-                Log.e("RETROFIT", err);
-                // Toast.makeText(HospitalBlockActivity.this, "Audio_file Failed: " + t, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(PersonalAccidentActivity.this, "Network Issue" + t, Toast.LENGTH_SHORT).show();
+
             }
         });
-    }*/
+
+
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     protected void createEditTextView() {
+
+
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear);      //find the linear layout
         linearLayout.removeAllViews();
         relativeLayout = (RelativeLayout) findViewById(R.id.realdynmo);
-       // pendingInfoList = getList();
+        final TextView[] buttonholder = new TextView[10];
+        filenameholder = new TextView[10];
+        ed = new EditText[10];
+        //TextView button = new TextView(this);
+        int in = triggersInfoList.size();
 
-        for (int i = 1; i <= pendingInfoList.size(); i++) {
+        List<String> titleList = new ArrayList<>();
+        List<String> fileNameList = new ArrayList<>();
+        triggerListId = new ArrayList<>();
+
+        for (TriggersInfo tri : triggersInfoList) {
+
+            titleList.add(tri.getTrigger_name());
+
+            // fileNameList.add(tri.getTrigger_file());
+        }
+        for (int i = 1; i <= in; i++) {
 
             EditText edittext = new EditText(this);
             TextView title = new TextView(this);
-            TextView button = new TextView(this);
-            TextView filename = new TextView(this);
+            final TextView button = new TextView(this);
+            allEds.add(edittext);
+            edittext.setId(i);
+            filename = new TextView(this);
+            filename.setId(i - 1);
+            // filename.setText(""+(i-1));
+            button.setId(i - 1);
+            fileNameList.add("" + (i - 1));
             title.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            title.setText("sf" + i);
+            View child = linearLayout.getChildAt(i);
+            title.setText(titleList.get(i - 1));
+
             edittext.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 160));
             button.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -437,21 +447,57 @@ public class PersonalAccidentActivity extends AppCompatActivity implements
             edittext.setTextSize(15f);
             filename.setTextSize(15f);
             edittext.setHint(Html.fromHtml(triggerreply));
-            filename.setText("adfd");
+
             button.setTextSize(17f);
+
             title.setTextSize(15f);
+            button.setOnClickListener(this);
+            buttonholder[i] = button;
+            filenameholder[i] = filename;
+            ed[i] = edittext;
             linearLayout.addView(title);
             linearLayout.addView(edittext);
             linearLayout.addView(button);
             linearLayout.addView(filename);
-            button.setOnClickListener(new View.OnClickListener() {
+
+            final int finalI = i;
+
+
+            buttonholder[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), "asf", Toast.LENGTH_SHORT).show();
+                    int in = v.getId();
+                    int is = filenameholder[finalI].getId();
+                    TriggersInfo triggerId = triggersInfoList.get(is);
+                    triggerID = triggerId.getCase_trigger_id();
+
+                    if (is == in) {
+                        count = finalI + 100;
+                        temp1 = "0";
+                        selectImage();
+
+
+                    }
                 }
             });
+
+
         }
+
     }
+
+
+
+
+
+    public boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
+        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+
 
 
 
